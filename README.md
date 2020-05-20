@@ -16,4 +16,8 @@ Project for managing hierarchy of GitLab projects with command-line
 6. Go to "Admin Area" => "Overview" => "Users" and choose "Administrator"
 7. Select "Impersonation Tokens"
 8. Fill "Name" with "gitlab-projects-commander", leave "Expires At" blank, select all scopes and hit "Create impersonation token"
- 
+9. The following request 
+```
+curl --header "Private-Token: <your_access_token>" http://localhost/api/v4/projects --insecure
+```
+should give you no authentication error but empty list of projects. 

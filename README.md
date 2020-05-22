@@ -1,11 +1,12 @@
 # gitlab-projects-commander
 Project for managing hierarchy of GitLab projects with command-line
 
+# Development process
 ## Local environment setup
 ### Pre-requirements
 * Up-to date Docker is installed on your local machine.
 * Python3 is installed on your local machine.
-## Preparing local GitLab installation
+### Preparing local GitLab installation
 1. Set GITLAB_HOME environment variable
 ```export GITLAB_HOME="<YOUR_USER_HOME>/gitlab-home"```
 2. Launch GitLab start script (sudo is required!). 
@@ -23,8 +24,12 @@ Next time you'll be able to start/stop your GitLab installation by container nam
 curl --header "Private-Token: <your_access_token>" http://localhost/api/v4/projects --insecure
 ```
 should give you no authentication error but empty list of projects.
-## Creating test data in your GitLab test installation
+### Creating test data in your GitLab test installation
 1. Set GITLAB_PRIVATE_TOKEN environment variable
 ```export GITLAB_PRIVATE_TOKEN=<your_access_token>```
 2. launch "create-groups.sh"
 ```./create-groups.sh```
+## Building
+### MacOS
+1. Build binary executable
+```./gradlew nativeBinaries```

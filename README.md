@@ -6,8 +6,11 @@ Project for managing hierarchy of GitLab projects with command-line
 # Development process
 ## Local environment setup
 ### Pre-requirements
-* Up-to date Docker is installed on your local machine.
-* Python3 is installed on your local machine.
+All this software should be installed on your local machine:
+* Docker desktop
+* Python3 
+* Java 8 
+* Latest Kotlin
 ### Preparing local GitLab installation
 1. Set GITLAB_HOME environment variable
 ```export GITLAB_HOME="<YOUR_USER_HOME>/gitlab-home"```

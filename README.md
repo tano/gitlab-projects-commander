@@ -26,5 +26,5 @@ should give you no authentication error but empty list of projects.
 ## Creating test data in your GitLab test installation
 1. Set GITLAB_PRIVATE_TOKEN environment variable
 ```export GITLAB_PRIVATE_TOKEN=<your_access_token>```
-2. launch "create-groups.py"
+2. launch "create-groups.sh"
 ```./create-groups.sh```

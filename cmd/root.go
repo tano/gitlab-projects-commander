@@ -16,8 +16,8 @@ var cfgFile string
 
 var rootCmd = &cobra.Command{
 	Use:   "gitlab-projects-commander",
-	Short: "gitlab-projects-commander is a tool which helps manging multiple GitLab projects",
-	Long: `gitlab-projects-commander is a tool which helps manging multiple GitLab projects.
+	Short: "gitlab-projects-commander is a tool which helps managing multiple GitLab projects",
+	Long: `gitlab-projects-commander is a tool which helps managing multiple GitLab projects.
 It now supports cloning hierarchy of all GitLab projects onto local filesystem while keeping the
 structure of the proejcts (folders and subfolders).
 

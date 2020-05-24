@@ -7,7 +7,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var cfgFile string
@@ -16,11 +18,11 @@ var rootCmd = &cobra.Command{
 	Use:   "gitlab-projects-commander",
 	Short: "gitlab-projects-commander is a tool which helps manging multiple GitLab projects",
 	Long: `gitlab-projects-commander is a tool which helps manging multiple GitLab projects.
-	It now supports cloning hierarchy of all GitLab projects onto local filesystem while keeping the
-	structure of the proejcts (folders and subfolders).
+It now supports cloning hierarchy of all GitLab projects onto local filesystem while keeping the
+structure of the proejcts (folders and subfolders).
 
-	Example: gitlab-projects-commander --gitlab-url https://gitlab.example.com
-	`,
+Example: gitlab-projects-commander clone --gitlab-url https://gitlab.example.com
+`,
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

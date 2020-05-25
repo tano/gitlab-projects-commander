@@ -34,7 +34,13 @@ should give you no authentication error but empty list of projects.
 ```export GITLAB_PRIVATE_TOKEN=<your_access_token>```
 2. launch "create-groups.sh"
 ```./create-groups.sh```
+3. TODO: add some test data like README to repo (now manually).
 ## Building
 ### MacOS
 1. Build binary executable
 ```./gradlew nativeBinaries```
+### Checking cloning
+1. Add gitlab.example.com host to /etc/hosts as localhost (on Mac).
+```sudo vim /etc/hosts```
+add ```127.0.0.1 gitlab.example.com``` at the end
+2. Add your SSH keys to locally running GitLab instance.

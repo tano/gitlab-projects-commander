@@ -2,3 +2,4 @@
 .idea
 .vscode
 gitlab-projects-commander
+.DS_Store

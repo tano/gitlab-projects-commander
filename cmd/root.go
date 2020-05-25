@@ -14,6 +14,13 @@ import (
 
 var cfgFile string
 
+/* GitLabURL is GitLab server URL used for communication with */
+var GitLabURL string
+
+var Token string
+
+var PathForProjects string
+
 var rootCmd = &cobra.Command{
 	Use:   "gitlab-projects-commander",
 	Short: "gitlab-projects-commander is a tool which helps managing multiple GitLab projects",
@@ -37,6 +44,15 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gitlab-projects-commander.yaml)")
+	rootCmd.PersistentFlags().StringVar(&GitLabURL, "gitlab-url", "http://localhost", "GitLab URL (default is http://localhost)")
+	rootCmd.PersistentFlags().StringVar(&Token, "token", "", "Token with API access")
+	home, err := homedir.Dir()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	path := home + "/Dev"
+	rootCmd.PersistentFlags().StringVar(&PathForProjects, "path", path, "Path for projects")
 }
 
 // initConfig reads in config file and ENV variables if set.

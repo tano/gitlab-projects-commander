@@ -5,10 +5,11 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 	"log"
-	"github.com/spf13/cobra"
+	"os"
+
 	"github.com/go-git/go-git/v5"
+	"github.com/spf13/cobra"
 	"github.com/tano/gitlab-projects-commander/gitlab"
 )
 

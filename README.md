@@ -44,3 +44,4 @@ should give you no authentication error but empty list of projects.
 ```sudo vim /etc/hosts```
 add ```127.0.0.1 gitlab.example.com``` at the end
 2. Add your SSH keys to locally running GitLab instance.
+3. Add gitlab.example.com to known_hosts on your machine.

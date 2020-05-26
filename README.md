@@ -9,8 +9,7 @@ Project for managing hierarchy of GitLab projects with command-line
 All this software should be installed on your local machine:
 * Docker desktop
 * Python3 
-* Java 8 
-* Latest Kotlin
+* Golang 1.14+
 ### Preparing local GitLab installation
 1. Set GITLAB_HOME environment variable
 ```export GITLAB_HOME="<YOUR_USER_HOME>/gitlab-home"```

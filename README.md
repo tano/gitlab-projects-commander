@@ -32,8 +32,10 @@ should give you no authentication error but empty list of projects.
 ### Creating test data in your GitLab test installation
 1. Set GITLAB_PRIVATE_TOKEN environment variable
 ```export GITLAB_PRIVATE_TOKEN=<your_access_token>```
-2. launch "create-groups.sh"
+2. launch "create-groups.sh" in case you want to populate GitLab wth some test projects and groups
 ```./create-groups.sh```
+launch "delete-test-items.sh" in case you want to clean up test projects and groups
+ GitLab ```./delete-test-items.sh```
 3. TODO: add some test data like README to repo (now manually).
 ## Building
 ### MacOS

@@ -1,6 +1,3 @@
-/*
-Copyright © 2020 tano <tanoshkin@yandex.ru>
-*/
 package cmd
 
 import (
@@ -13,7 +10,8 @@ import (
 	"github.com/tano/gitlab-projects-commander/gitlab"
 )
 
-// cloneCmd represents the clone command
+var cloningPath string
+
 var cloneCmd = &cobra.Command{
 	Use:   "clone",
 	Short: "clone allows you to clone recursively hierarchy of GitLab projects",
@@ -22,11 +20,12 @@ var cloneCmd = &cobra.Command{
 gitlab-projects-commander clone --gitlab-url https://gitlab.example.com
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := fmt.Sprintf("clone called, GitLab URL is %s and token is %s", GitLabURL, Token)
+		s := fmt.Sprintf("clone called, GitLab URL is %s and token is %s", gitlab.URL, gitlab.Token)
 		fmt.Println(s)
-		projects := gitlab.GetProjects(GitLabURL, Token)
+		// TODO: check if dir is empty or not
+		projects := gitlab.GetProjects(gitlab.URL, gitlab.Token)
 		for _, project := range projects {
-			effPath := PathForProjects + "/" + project.Name
+			effPath := cloningPath + "/" + project.Name
 			m := fmt.Sprintf("going to clone project %s to %s", project.SSHURLToRepo, effPath)
 			fmt.Println(m)
 			_, err := git.PlainClone(effPath, false, &git.CloneOptions{
@@ -34,8 +33,7 @@ gitlab-projects-commander clone --gitlab-url https://gitlab.example.com
 				Progress: os.Stdout,
 			})
 			if err != nil {
-				log.Fatalf("Failed to clone repot: %v", err)
-				// return make([]gitLabProject, 0)
+				log.Fatalf("Failed to clone repo: %v", err)
 			}
 		}
 	},
@@ -43,4 +41,5 @@ gitlab-projects-commander clone --gitlab-url https://gitlab.example.com
 
 func init() {
 	rootCmd.AddCommand(cloneCmd)
+	rootCmd.PersistentFlags().StringVar(&cloningPath, "path", "defaultPath", "Target path to clone GitLab hierarchy")
 }

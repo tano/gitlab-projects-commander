@@ -1,25 +1,11 @@
-/*
-Copyright © 2020 tano <tanoshkin@yandex.ru>
-*/
 package cmd
 
 import (
 	"fmt"
-	"os"
-
-	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+	"github.com/tano/gitlab-projects-commander/gitlab"
+	"os"
 )
-
-var cfgFile string
-
-/* GitLabURL is GitLab server URL used for communication with */
-var GitLabURL string
-
-var Token string
-
-var PathForProjects string
 
 var rootCmd = &cobra.Command{
 	Use:   "gitlab-projects-commander",
@@ -42,41 +28,6 @@ func Execute() {
 }
 
 func init() {
-	cobra.OnInitialize(initConfig)
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.gitlab-projects-commander.yaml)")
-	rootCmd.PersistentFlags().StringVar(&GitLabURL, "gitlab-url", "http://localhost", "GitLab URL (default is http://localhost)")
-	rootCmd.PersistentFlags().StringVar(&Token, "token", "", "Token with API access")
-	home, err := homedir.Dir()
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-	path := home + "/Dev"
-	rootCmd.PersistentFlags().StringVar(&PathForProjects, "path", path, "Path for projects")
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	if cfgFile != "" {
-		// Use config file from the flag.
-		viper.SetConfigFile(cfgFile)
-	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-
-		// Search config in home directory with name ".gitlab-projects-commander" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".gitlab-projects-commander")
-	}
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
-	}
+	rootCmd.PersistentFlags().StringVar(&gitlab.URL, "gitlab-url", "http://localhost", "Address of GitLab server (default is http://localhost)")
+	rootCmd.PersistentFlags().StringVar(&gitlab.Token, "token", "", "Impersonation token of user with access to GitLab API")
 }

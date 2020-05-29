@@ -3,3 +3,4 @@
 .vscode
 gitlab-projects-commander
 .DS_Store
+__pycache__/

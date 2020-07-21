@@ -28,6 +28,8 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVar(&gitlab.URL, "gitlab-url", "http://localhost", "Address of GitLab server (default is http://localhost)")
-	rootCmd.PersistentFlags().StringVar(&gitlab.Token, "token", "", "Impersonation token of user with access to GitLab API")
+	var gitLabApiURL, impersonationToken string
+	rootCmd.PersistentFlags().StringVar(&gitLabApiURL, "gitlab-url", "http://localhost", "Address of GitLab server (default is http://localhost)")
+	rootCmd.PersistentFlags().StringVar(&impersonationToken, "token", "", "Impersonation token of user with access to GitLab API")
+	gitlab.ConnectedGitlabClient = gitlab.ConnectedClient(gitLabApiURL, impersonationToken)
 }

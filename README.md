@@ -1,8 +1,6 @@
 # gitlab-projects-commander
 Project for managing hierarchy of GitLab projects with command-line
 
-![Kotlin/Native CI](https://github.com/tano/gitlab-projects-commander/workflows/Kotlin/Native%20CI/badge.svg)
-
 # Development process
 ## Local environment setup
 ### Pre-requirements

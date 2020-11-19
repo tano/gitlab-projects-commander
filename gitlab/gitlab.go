@@ -11,24 +11,21 @@ type Client interface {
 }
 
 type gitlabConnectedClient struct {
-	apiURL             string
-	impersonationToken string
+	clientInstance *gitlab.Client
 }
 
 func ConnectedClient(apiURL, impersonationToken string) *gitlabConnectedClient {
+	client, err := gitlab.NewClient(impersonationToken, gitlab.WithBaseURL(apiURL))
+	if err != nil {
+		log.Fatalf("Failed to create client: %v", err)
+	}
 	return &gitlabConnectedClient{
-		apiURL:             apiURL,
-		impersonationToken: impersonationToken,
+		clientInstance: client,
 	}
 }
 
 func (client gitlabConnectedClient) GetProjects() []*gitlab.Project {
-	git, err := gitlab.NewClient(client.impersonationToken, gitlab.WithBaseURL(client.apiURL))
-	if err != nil {
-		log.Fatalf("Failed to create client: %v", err)
-	}
-
-	projects, _, err := git.Projects.ListProjects(&gitlab.ListProjectsOptions{})
+	projects, _, err := client.clientInstance.Projects.ListProjects(&gitlab.ListProjectsOptions{})
 	if err != nil {
 		log.Fatalf("Failed to list gitlab projects: %v", err)
 	}
@@ -37,24 +34,5 @@ func (client gitlabConnectedClient) GetProjects() []*gitlab.Project {
 }
 
 var (
-	// URL holds the address of GitLab server
-	URL string
-	// Token is impersonation token of user with access to GitLab API
-	Token string
-
 	ConnectedGitlabClient *gitlabConnectedClient
 )
-
-func GetProjects(ApiURL string, token string) []*gitlab.Project {
-	git, err := gitlab.NewClient(token, gitlab.WithBaseURL(ApiURL))
-	if err != nil {
-		log.Fatalf("Failed to create client: %v", err)
-	}
-
-	projects, _, err := git.Projects.ListProjects(&gitlab.ListProjectsOptions{})
-	if err != nil {
-		log.Fatalf("Failed to list gitlab projects: %v", err)
-	}
-
-	return projects
-}

@@ -21,7 +21,7 @@ func CloneCommand(gl gitlab.Client) *cobra.Command {
 gitlab-projects-commander clone --gitlab-url https://gitlab.example.com
 `,
 		Run: func(cmd *cobra.Command, args []string) {
-			s := fmt.Sprintf("clone called, GitLab URL is %s and token is %s", gitlab.URL, gitlab.Token)
+			s := fmt.Sprintf("clone called")
 			fmt.Println(s)
 			// TODO: check if dir is empty or not
 			projects := gl.GetProjects()

@@ -4,14 +4,14 @@ import urllib.parse
 import gitlab
 
 private_token = os.environ.get('GITLAB_PRIVATE_TOKEN')
-gl = None
+gl = None #todo: remove useless variable
 
 def main():
     check_token()
     print('start creating gitlab hierarchy')
     global gl
     gl = gitlab.Gitlab('http://localhost', private_token=private_token)   
-    check_gitlab_is_clean()
+    check_gitlab_is_clean() #check is gitlab empty to avoid corruption of exising data
     faceboak_group = create_group('faceboak')
     instagrum_group = create_group('instagrum', faceboak_group.id)
     create_project('mobile-app',  instagrum_group.id)
@@ -31,22 +31,24 @@ def check_gitlab_is_clean():
         exit(1)
 
 def create_group(group_name, parent_project_id = None):
-    creation_request = {'name': group_name, 'path': group_name}
+    group_creation_request = {'name': group_name, 'path': group_name}
     if parent_project_id is not None:
-        creation_request['parent_id'] = parent_project_id
-    created_group = gl.groups.create(creation_request)
+        group_creation_request['parent_id'] = parent_project_id
+    created_group = gl.groups.create(group_creation_request)
     print('created group ' + created_group.name + ' and id ' + str(created_group.id))
     return created_group
 
 def create_project(project_name, parent_namespace_id):
-    created_project = gl.projects.create({'name': project_name, 'path': project_name, 'namespace_id': parent_namespace_id})
+    project_creation_request = {'name': project_name, 'path': project_name, 'namespace_id': parent_namespace_id}
+    created_project = gl.projects.create(project_creation_request)
     print('created project ' + project_name + ' and id ' + str(created_project.id))
-    created_project.files.create({'file_path': 'testfile.txt',
-                          'branch': 'master',
-                          'content': 'this is just a test',
-                          'author_email': 'test@example.com',
-                          'author_name': 'yourname',
-                          'commit_message': 'Create testfile'})
+    file_creation_request = {'file_path': 'testfile.txt',
+                 'branch': 'master',
+                 'content': 'this is just a test',
+                 'author_email': 'test@example.com',
+                 'author_name': 'yourname',
+                 'commit_message': 'Create testfile'}
+    created_project.files.create(file_creation_request)
     return created_project
 
 

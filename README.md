@@ -8,6 +8,12 @@ All this software should be installed on your local machine:
 * Docker desktop
 * Python3 
 * Golang 1.14+
+### Windows
+* Windows 10 PRO build 2004 or higher (home version does not support)
+* Enable Hyper-V in windows features
+* Install WSL 2
+* Install Ubuntu subsystem from windows store
+* Install Windows Terminal from windows store for using ubuntu subsystem
 ### Preparing local GitLab installation
 1. Set GITLAB_HOME environment variable
 ```export GITLAB_HOME="<YOUR_USER_HOME>/gitlab-home"```

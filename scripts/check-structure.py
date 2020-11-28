@@ -6,24 +6,27 @@ def main():
     folder_path = '/home/master/Dev/folder'
 
     actual_structure = {}
+    print('')
 
     check(folder_path)
 
-def check(folder_path):    
+def check(folder_path): 
     dirs = os.listdir(folder_path)
     for file in dirs:
-        if os.path.isdir(file):
-            print(file, ' is file')
+        full_path = os.path.join(folder_path, file) 
+        if os.path.isfile(full_path):
+            print(file, 'is file')
         else:
-            print(file, ' is directory')
-            inner_path = os.path.join(folder_path, file) 
-            inner_dirs = os.listdir(inner_path)
-            group = True
+            inner_dirs = os.listdir(full_path)
+            not_file = True
             for inner_file in inner_dirs:
-                if os.path.isfile(inner_file):
-                    print(inner_file, 'is project')
-                else:
-                    print(inner_file, 'is group')
-
+                full_inner_path = os.path.join(folder_path, file, inner_file)
+                if not os.path.isdir(full_inner_path):
+                    not_file = False
+                    print(file, 'is project')
+            if not_file == True and len(inner_dirs) > 0:
+                print(file, 'is group')
+                check(full_path)
+               
 if __name__ == '__main__':
     main()

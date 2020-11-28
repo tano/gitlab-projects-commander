@@ -32,6 +32,10 @@ Next time you'll be able to start/stop your GitLab installation by container nam
 curl --header "Private-Token: <your_access_token>" http://localhost/api/v4/projects --insecure
 ```
 should give you no authentication error but empty list of projects.
+### Linux
+1. sudo apt install python3
+2. sudo apt update
+3. sudo apt-install python3-venv 
 ### Creating test data in your GitLab test installation
 1. Set GITLAB_PRIVATE_TOKEN environment variable
 ```export GITLAB_PRIVATE_TOKEN=<your_access_token>```

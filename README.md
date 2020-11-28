@@ -47,7 +47,7 @@ launch "delete-test-items.sh" in case you want to clean up test projects and gro
 ## Building
 ### MacOS
 1. Build binary executable
-```./gradlew nativeBinaries```
+```go build .```
 ### Checking cloning
 1. Add gitlab.example.com host to /etc/hosts as localhost (on Mac).
 ```sudo vim /etc/hosts```

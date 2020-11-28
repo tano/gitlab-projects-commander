@@ -14,8 +14,10 @@ def main():
     check_gitlab_is_clean() #check is gitlab empty to avoid corruption of exising data
     faceboak_group = create_group('faceboak')
     instagrum_group = create_group('instagrum', faceboak_group.id)
+    whatsup_group = create_group('whatsup', faceboak_group.id)
     create_project('mobile-app',  instagrum_group.id)
     create_project('website',  instagrum_group.id)
+    create_project('mobile-app', whatsup_group.id)
     print('end creating gitlab hierarchy')
 
 def check_token():

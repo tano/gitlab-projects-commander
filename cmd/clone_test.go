@@ -32,6 +32,14 @@ func (mock *mockGitCloner) CloneRepo(path string, repoUrl string) (*git.Reposito
 	return &repository, nil
 }
 
+type mockOsManager struct {
+	dirExist bool
+}
+
+func (mock *mockOsManager) CheckDirExist(path string) bool {
+	return mock.dirExist
+}
+
 func TestHappyPathCloning(t *testing.T) {
 	// given
 	cloningPath = "/home"
@@ -48,9 +56,10 @@ func TestHappyPathCloning(t *testing.T) {
 		path:    "",
 		options: nil,
 	}
+	mockOsManager := mockOsManager{dirExist: true}
 
 	// when
-	RunClone(mockClient, &gitCloner)
+	RunClone(&mockClient, &gitCloner, &mockOsManager)
 
 	// then
 	if !gitCloner.called {
@@ -75,12 +84,34 @@ func TestEmptyProjects(t *testing.T) {
 		path:    "",
 		options: nil,
 	}
+	mockOsManager := mockOsManager{dirExist: true}
 
 	// when
-	RunClone(mockClient, &gitCloner)
+	RunClone(&mockClient, &gitCloner, &mockOsManager)
 
 	// then
 	if gitCloner.called {
 		t.Errorf("Called but did not want to")
+	}
+}
+
+func TestDirDoesNotExist(t *testing.T) {
+	// given
+	cloningPath = "/home"
+	var projects []*gitlab.Project
+	mockClient := mockGitLabClient{projects: projects}
+	gitCloner := mockGitCloner{
+		called:  false,
+		path:    "",
+		options: nil,
+	}
+	mockOsManager := mockOsManager{dirExist: false}
+
+	// when
+	err := RunClone(&mockClient, &gitCloner, &mockOsManager)
+
+	// then
+	if err == nil {
+		t.Errorf("Error should be thrown because directory does not exist")
 	}
 }
